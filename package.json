@@ -1,0 +1,31 @@
+{
+  "name": "apple-pi",
+  "version": "0.1.0",
+  "description": "Opinionated pi extension — lightweight in-process subagent system",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "subagents",
+    "agents",
+    "ai"
+  ],
+  "files": [
+    "*.ts",
+    "agents/",
+    "README.md"
+  ],
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-agent-core": "*",
+    "@mariozechner/pi-ai": "*",
+    "@mariozechner/pi-coding-agent": "*",
+    "@sinclair/typebox": "*"
+  }
+}
