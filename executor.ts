@@ -4,6 +4,13 @@ import { convertToLlm, type ModelRegistry } from "@mariozechner/pi-coding-agent"
 import type { AgentConfig, RunResult } from "./types.ts";
 import { buildTools } from "./tools.ts";
 
+/** Progress update from a running agent. */
+export interface AgentProgressUpdate {
+	tokens: number;
+	toolUses: number;
+	durationMs: number;
+}
+
 /** Resolve a "provider/model-id" string to a Model object, or fall back to parentModel. */
 function resolveModel(
 	modelStr: string | undefined,
@@ -13,7 +20,6 @@ function resolveModel(
 	if (!modelStr) return parentModel;
 	const slashIdx = modelStr.indexOf("/");
 	if (slashIdx === -1) {
-		// Try matching just by id across all providers
 		const available = registry.getAvailable();
 		const match = available.find((m) => m.id === modelStr);
 		return match ?? parentModel;
@@ -65,6 +71,7 @@ export async function runAgent(
 	parentModel: any,
 	modelRegistry: ModelRegistry,
 	signal?: AbortSignal,
+	onProgress?: (update: AgentProgressUpdate) => void,
 ): Promise<RunResult> {
 	const start = Date.now();
 	const model = resolveModel(config.model, parentModel, modelRegistry);
@@ -102,6 +109,29 @@ export async function runAgent(
 			});
 		},
 	});
+
+	// Track progress via agent events
+	let toolUses = 0;
+	if (onProgress) {
+		agent.subscribe((event) => {
+			if (event.type === "tool_execution_end") {
+				toolUses++;
+				const usage = extractUsage(agent.state.messages);
+				onProgress({
+					tokens: usage.total,
+					toolUses,
+					durationMs: Date.now() - start,
+				});
+			} else if (event.type === "message_end") {
+				const usage = extractUsage(agent.state.messages);
+				onProgress({
+					tokens: usage.total,
+					toolUses,
+					durationMs: Date.now() - start,
+				});
+			}
+		});
+	}
 
 	// Wire abort signal
 	if (signal) {
