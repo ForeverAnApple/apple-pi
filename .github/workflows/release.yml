@@ -12,12 +12,14 @@ on:
           - minor
           - major
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -32,7 +34,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Bump version
-        run: npm version ${{ inputs.bump }} -m 'release: v%s'
+        env:
+          BUMP: ${{ inputs.bump }}
+        run: npm version "$BUMP" -m "release: v%s"
 
       - name: Publish to npm
         run: npm publish --access public --provenance
