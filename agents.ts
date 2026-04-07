@@ -4,7 +4,9 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ThinkingLevel } from "@mariozechner/pi-agent-core";
 import type { AgentConfig } from "./types.ts";
-import { ALL_TOOL_NAMES } from "./tools.ts";
+
+/** Default tool set when agent doesn't specify tools. */
+const DEFAULT_TOOLS = ["read", "bash", "edit", "write", "grep", "find", "ls"];
 
 const THINKING_LEVELS = new Set(["off", "minimal", "low", "medium", "high", "xhigh"]);
 
@@ -42,7 +44,7 @@ function parseAgentFile(filePath: string, source: AgentConfig["source"]): AgentC
 
 	const tools = frontmatter.tools
 		? frontmatter.tools.split(",").map((t) => t.trim()).filter(Boolean)
-		: ALL_TOOL_NAMES;
+		: DEFAULT_TOOLS;
 
 	const thinking = THINKING_LEVELS.has(frontmatter.thinking ?? "")
 		? (frontmatter.thinking as ThinkingLevel)

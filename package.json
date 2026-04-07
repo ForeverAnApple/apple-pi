@@ -14,9 +14,13 @@
   ],
   "files": [
     "*.ts",
+    "!*.test.ts",
     "agents/",
     "README.md"
   ],
+  "scripts": {
+    "test": "node --experimental-strip-types --test test/*.test.ts"
+  },
   "pi": {
     "extensions": [
       "./index.ts"
