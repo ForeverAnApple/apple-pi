@@ -36,7 +36,8 @@ jobs:
       - name: Bump version
         env:
           BUMP: ${{ inputs.bump }}
-        run: npm version "$BUMP" -m "release: v%s"
+        run: |
+          npm version "$BUMP" -m "release: v%s"
 
       - name: Publish to npm
         run: npm publish --access public --provenance
