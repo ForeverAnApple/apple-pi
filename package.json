@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ForeverAnApple/apple-pi.git"
+    "url": "git+https://github.com/ForeverAnApple/apple-pi.git"
   },
   "homepage": "https://github.com/ForeverAnApple/apple-pi",
   "bugs": {
@@ -27,7 +27,13 @@
     "README.md"
   ],
   "scripts": {
-    "test": "node --experimental-strip-types --test test/*.test.ts"
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "changeset": "npx changeset",
+    "changeset:version": "npx changeset version",
+    "changeset:release": "npx changeset publish"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "pi": {
     "extensions": [
@@ -40,5 +46,8 @@
     "@mariozechner/pi-coding-agent": "*",
     "@mariozechner/pi-tui": "*",
     "@sinclair/typebox": "*"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.30.0"
   }
 }
