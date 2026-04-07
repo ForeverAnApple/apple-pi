@@ -4,6 +4,14 @@
   "description": "Opinionated pi extension — lightweight in-process subagent system",
   "type": "module",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ForeverAnApple/apple-pi.git"
+  },
+  "homepage": "https://github.com/ForeverAnApple/apple-pi",
+  "bugs": {
+    "url": "https://github.com/ForeverAnApple/apple-pi/issues"
+  },
   "keywords": [
     "pi-package",
     "pi",
