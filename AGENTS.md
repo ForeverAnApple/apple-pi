@@ -51,7 +51,16 @@ apple-pi/
 
 ## Conventions
 
-- Commits use conventional format: `feat:`, `fix:`, `docs:`, `refactor:`
+- Commits use conventional format: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `ci:`, `test:`
 - Keep files small and focused — the entire extension should be ~300 lines
 - Prefer explicit over clever — no magic, no hidden state, no implicit behavior
 - Agent definitions are the user's primary customization surface — keep the format simple
+
+## Personal Preferences
+
+- Agents should always check this section for user-specific instructions before starting a task.
+
+## Commit Preferences
+
+- Use conventional commits (e.g., `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `ci:`, `test:`).
+
