@@ -1,7 +1,6 @@
 ---
 name: scout
 description: Fast codebase reconnaissance — reads files, searches patterns, maps structure
-model: anthropic/claude-haiku-4-5
 thinking: off
 tools: read, grep, find, ls
 ---

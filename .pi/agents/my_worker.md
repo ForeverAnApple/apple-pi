@@ -1,6 +1,6 @@
 ---
-name: worker
-description: Implementation agent — reads, edits, writes, and runs commands
+name: my_worker
+description: Custom worker using the same model as the main agent
 thinking: medium
 tools: read, bash, edit, write, grep, find
 ---
